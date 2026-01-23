@@ -2,7 +2,7 @@ import React from 'react'
 
 class UserInfor extends React.Component{
 
-        state = {
+    state = {
         name: 'Quyen',
         address: 'Quyen dep trai',
         age: 22
