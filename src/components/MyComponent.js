@@ -4,6 +4,7 @@
 import React from 'react';
 import UserInfor from './UserInfor';
 import DisplayInfor from './DisplayInfor';
+import AddUserInfor from './AddUserInfor';
 
 class MyComponent extends React.Component{
     //JSX
@@ -15,13 +16,24 @@ class MyComponent extends React.Component{
         ],
         ii: "hgas"
     }
+    handleAddNewUser = (objectUser) => {
+        console.log(objectUser);
+        this.setState({
+            listUsers: [objectUser,...this.state.listUsers]
+        })
+    }
     render(){
         return (
             <div>
-                <UserInfor></UserInfor>
+                <AddUserInfor
+                    handleAddNewUser = {this.handleAddNewUser}>
+                </AddUserInfor>
                 <br></br>
-                
-                <DisplayInfor listUsers = {this.state.listUsers}></DisplayInfor>
+                <DisplayInfor 
+                    listUsers = {this.state.listUsers}
+                    
+                >
+                </DisplayInfor>
             </div>
         );
     }
