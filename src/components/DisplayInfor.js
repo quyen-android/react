@@ -17,29 +17,30 @@ class DisplayInfor extends React.Component{
     render(){
         const {listUsers} = this.props;
         return(
-            <div className="display-infor-container">
-                <img src={logo}></img>
-                <div>
-                    <span onClick={(event) => { this.handleShowHide()}}>
-                        {this.state.isShowListUser === true? "Hide list user: " : "Show list user: "} 
-                    </span>
-                </div>
-                {this.state.isShowListUser &&
+            <>
+                <div className="display-infor-container">
+                    <img src={logo}></img>
                     <div>
-                    {listUsers.map((user) => {
-                    return(
-                                <div key = {user.id} className={+user.age >18 ?"green":"red"}>
-                                    <hr></hr>
-                                    <div>{user.id}</div>
-                                    <div>My name's {user.name}</div>
-                                    <div>My age's {user.age}</div>
-                                </div>
-                            );
-                    })}
+                        <span onClick={(event) => { this.handleShowHide()}}>
+                            {this.state.isShowListUser === true? "Hide list user: " : "Show list user: "} 
+                        </span>
                     </div>
-                }
-            </div>
-            
+                    {this.state.isShowListUser &&
+                        <div>
+                        {listUsers.map((user) => {
+                        return(
+                                    <div key = {user.id} className={+user.age >18 ?"green":"red"}>
+                                        <hr></hr>
+                                        <div>{user.id}</div>
+                                        <div>My name's {user.name}</div>
+                                        <div>My age's {user.age}</div>
+                                    </div>
+                                );
+                        })}
+                        </div>
+                    }
+                </div>
+            </>
         )
     }
 }
