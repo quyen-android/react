@@ -1,4 +1,5 @@
 import React from "react";
+import './DisplayInfor.scss';
 
 class DisplayInfor extends React.Component{
     // Destructuring array
@@ -15,7 +16,7 @@ class DisplayInfor extends React.Component{
     render(){
         const {listUsers} = this.props;
         return(
-            <div>
+            <div className="display-infor-container">
                 <div>
                     <span onClick={(event) => { this.handleShowHide()}}>
                         {this.state.isShowListUser === true? "Hide list user: " : "Show list user: "} 
