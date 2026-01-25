@@ -5,8 +5,12 @@ import logo from '../logo.svg';
 class DisplayInfor extends React.Component{
     // Destructuring array
 
-    state = {
-        isShowListUser : true
+    constructor(props){
+        super(props);
+        console.log('call me constructor: 1')
+        this.state = {
+            isShowListUser : true
+        }
     }
     handleShowHide = () =>{
         this.setState({
@@ -14,8 +18,24 @@ class DisplayInfor extends React.Component{
         })
     }
 
+    componentDidMount(){
+        console.log('call me component did mount');
+        setTimeout(() => {
+            document.title = 'Eric & Quyen dep trai'
+        },3000);
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        console.log('call me component did update',this.props, prevProps);
+        if(this.props.listUsers !== prevProps.listUsers){
+            if(this.props.listUsers.length === 5){
+                alert('me')
+            }
+        }
+    }
     //props => properties
     render(){
+        console.log('>>> call me render')
         const {listUsers} = this.props;
         return(
             <>
