@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './DisplayInfor.scss';
 import logo from '../logo.svg';
 
@@ -80,39 +80,48 @@ const DisplayInfor = (props) => {
     // this.state = {
     //     isShowListUser: true
     // }
-    const handleShowHideListUser = () =>{
+    const handleShowHideListUser = () => {
         setShowHiddeListUser(!isShowListUser)
     }
-        return(
-            <div className="display-infor-container">
-                {/* <img src={logo}></img> */}
-                <div>
-                    <span onClick={() => handleShowHideListUser()}> 
-                        Show list user 
-                    </span>
-                </div>
-                {isShowListUser &&
-                    <div>
-                        {listUsers.map((user) => {
-                        return(
-                                <div key = {user.id} className={+user.age >18 ?"green":"red"}>
-                                    <div>
-                                        <hr></hr>
-                                        <div>{user.id}</div>
-                                        <div>My name's {user.name}</div>
-                                        <div>My age's {user.age}</div>
-                                    </div>
-                                    <div >
-                                        <button onClick={() => {props.handleDeleteUser(user.id)}}>Delete</button>
-                                    </div>
-                                </div>
 
-                        );
-                        })}
-                    </div>
-                }
+    console.log('call me render')
+    useEffect(() => {
+        if(listUsers.length === 0){
+            alert('You delete all the answer')
+        }
+        console.log('u deleted all the users')
+        },[listUsers]
+    )
+    return(
+        <div className="display-infor-container">
+            {/* <img src={logo}></img> */}
+            <div>
+                <span onClick={() => handleShowHideListUser()}> 
+                    Show list user 
+                </span>
             </div>
-        )
-    }
+            {isShowListUser &&
+                <div>
+                    {listUsers.map((user) => {
+                    return(
+                            <div key = {user.id} className={+user.age >18 ?"green":"red"}>
+                                <div>
+                                    <hr></hr>
+                                    <div>{user.id}</div>
+                                    <div>My name's {user.name}</div>
+                                    <div>My age's {user.age}</div>
+                                </div>
+                                <div >
+                                    <button onClick={() => {props.handleDeleteUser(user.id)}}>Delete</button>
+                                </div>
+                            </div>
+
+                    );
+                    })}
+                </div>
+            }
+        </div>
+    )
+}
 
 export default DisplayInfor;
