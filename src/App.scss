@@ -27,4 +27,12 @@ body {
     }
   }
 }
+.container{
+  z-index: 10;
+}
+video{
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 
+}
