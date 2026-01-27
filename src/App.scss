@@ -8,4 +8,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.app-container{
+  .header-container{
+    .navbar-nav {
+      .nav-link-hover-color{
+        color: red;
+      }
+      .nav-link{
+        &.active{
+          color: rgb(40, 108, 245);
+        }
+        &:hover {
+          color: red;
+        }
+      }
+      
+
+    }
+  }
+}
 
