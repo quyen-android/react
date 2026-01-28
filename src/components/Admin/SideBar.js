@@ -10,7 +10,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
-
+import { Link } from "react-router-dom";
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
 import './SideBar.scss';
@@ -18,6 +18,7 @@ import './SideBar.scss';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+
     return (
         <>
             <ProSidebar
@@ -41,7 +42,7 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size={'3em'} color={"#ff00ff"}></DiReact>
-                        <span>Hoi dan it</span>
+                        <span>Hoi Quyen dep trai</span>
                     </div>
                 </SidebarHeader>
 
@@ -52,6 +53,7 @@ const SideBar = (props) => {
                             // suffix={<span className="badge red">New</span>}
                         >
                             dashboard
+                            <Link to='/admins'></Link>
                         </MenuItem>     
                     </Menu>
                     <Menu iconShape="circle">
@@ -59,7 +61,10 @@ const SideBar = (props) => {
                             icon={<FaGem />}
                             title={"Features"}
                         >
-                            <MenuItem> Quản lý Users</MenuItem>
+                            <MenuItem> 
+                                Quản lý Users
+                                < Link to='/admins/manage-users'/>
+                            </MenuItem>
                             <MenuItem> Quản lý bài Quiz</MenuItem>
                             <MenuItem> Quản lý câu hỏi</MenuItem>
                         </SubMenu>
