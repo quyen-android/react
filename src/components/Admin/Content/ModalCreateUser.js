@@ -4,11 +4,18 @@ import Modal from 'react-bootstrap/Modal';
 import './ManageUser.scss';
 import { FcPlus } from "react-icons/fc";
 import ModalShowPreview from "./ModalShowPreview";
+import axios from 'axios';
 
-const ModalCreateUser = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
+const ModalCreateUser = (props) => {
+    const {show, setShow} = props;
+    const handleClose = () => {
+        setShow(false)
+        setEmail("");
+        setPassword("");
+        setRole("USER");
+        setUsername("");
+        setPreviewImage("");
+    };
     const handleShow = () => setShow(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,7 +58,25 @@ const ModalCreateUser = () => {
     //     event.preventDefault();
     // };
 
+    const handSubmitCreateUser = async() =>{
+        // let data = {
+        //     email: email,
+        //     password: password,
+        //     username: username,
+        //     role: role,
+        //     userImage: image
+        // }
+        // console.log(data);
+        const data = new FormData();
+        data.append("email", email);
+        data.append("password", password);
+        data.append("username", username);
+        data.append("role", role);
+        data.append("userImage", image);
 
+        let res = await axios.post('http://localhost:8081/api/v1/participant',data)
+        console.log("check res: ",res)
+    }
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]){
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
@@ -64,9 +89,9 @@ const ModalCreateUser = () => {
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
+        {/* <Button variant="primary" onClick={handleShow}>
             Launch demo modal
-        </Button>
+        </Button> */}
 
         <Modal 
             size="xl" 
@@ -149,7 +174,7 @@ const ModalCreateUser = () => {
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={() => handSubmitCreateUser()}>
                     Save Changes
                 </Button>
             </Modal.Footer>
