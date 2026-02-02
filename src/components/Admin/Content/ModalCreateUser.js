@@ -4,8 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import './ManageUser.scss';
 import { FcPlus } from "react-icons/fc";
 import ModalShowPreview from "./ModalShowPreview";
-import axios from 'axios';
 import { toast } from "react-toastify";
+import { postCreateNewUser } from '../../../services/apiService';
 
 const ModalCreateUser = (props) => {
     const {show, setShow} = props;
@@ -81,21 +81,16 @@ const ModalCreateUser = (props) => {
             toast.error("Invalid password")
             return;
         }
-        const data = new FormData();
-        data.append("email", email);
-        data.append("password", password);
-        data.append("username", username);
-        data.append("role", role);
-        data.append("userImage", image);
+        
 
-        let res = await axios.post('http://localhost:8081/api/v1/participant',data)
-        console.log("check res: ",res.data)
-        if(res.data && res.data.EC === 0){
-            toast.success(res.data.EC);
+        let data = await postCreateNewUser(email, password, username, role, image);
+        console.log("component res: ",data)
+        if(data && data.EC === 0){
+            toast.success(data.EM);
             handleClose();
             
         }else{
-            toast.error(res.data.EM)
+            toast.error(data.EM)
         }
     }
     const handleUploadImage = (event) => {
