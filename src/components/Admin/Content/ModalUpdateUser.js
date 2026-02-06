@@ -5,7 +5,7 @@ import './ManageUser.scss';
 import { FcPlus } from "react-icons/fc";
 import ModalShowPreview from "./ModalShowPreview";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from '../../../services/apiService';
+import { postUpdateUser } from '../../../services/apiService';
 import _ from 'lodash';
 
 const ModalUpdateUser = (props) => {
@@ -19,6 +19,7 @@ const ModalUpdateUser = (props) => {
         setUsername("");
         setImage("");
         setPreviewImage("");
+        props.resetUpdateData();
     };
 
     const handleShow = () => setShow(true);
@@ -58,13 +59,7 @@ const ModalUpdateUser = (props) => {
             return;
         }
 
-        if(!password){
-            toast.error("Invalid password")
-            return;
-        }
-        
-
-        let data = await postCreateNewUser(email, password, username, role, image);
+        let data = await postUpdateUser(dataUpdate.id,username, role, image);
         if(data && data.EC === 0){
             toast.success(data.EM);
             handleClose();
