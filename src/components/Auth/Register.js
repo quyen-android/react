@@ -1,18 +1,25 @@
 import { useState } from 'react';
-import './Login.scss';
+import './Register.scss';
 import { useNavigate } from 'react-router-dom';
-import { postLogin } from '../../services/apiService';
+import { postRegister } from '../../services/apiService';
 import { toast } from "react-toastify";
+import { VscEye } from "react-icons/vsc";
+import { VscEyeClosed } from "react-icons/vsc";
 
-
-
-const Login = (props) =>{
+const Register = (props) =>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("")
+    const [isShowPassword, setIsShowPassword] = useState(false);
     const navigate = useNavigate();
-    const handleRegister = () =>{
-        navigate('/register')
+
+    const handleShowPassword = () =>{
+        setIsShowPassword(true)
     }
+        const handleLogin = () =>{
+        navigate('/login')
+    }
+
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -20,7 +27,8 @@ const Login = (props) =>{
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleLogin = async() =>{
+
+    const handleRegister = async() =>{
         //validate
         const isValidEmail = validateEmail(email);
 
@@ -33,12 +41,11 @@ const Login = (props) =>{
             toast.error("Invalid password")
             return;
         }
-        
         // submit apis
-        let data = await postLogin(email,password)
+        let data = await postRegister(username,email,password)
         if(data && data.EC === 0){
             toast.success(data.EM);
-            navigate("/")
+            navigate("/login")
         }
 
         if(data && +data.EC !=0){
@@ -46,20 +53,29 @@ const Login = (props) =>{
         }
     }
     return(
-        <div className="login-container">
+        <div className="register-container">
             <div className='header'>
-                <span>Don't have an account yet?</span>
-                <button onClick={() => handleRegister()}>Sign up</button>
+                <span>Already have an account?</span>
+                <button onClick={() => handleLogin()}>Log in</button>
             </div>
             <div className='title col-4 mx-auto'>
-                Quyennn
+                Register
             </div>
             <div className='welcome col-4 mx-auto'>
-                Hello, who's this?
+                Strart your journey?
             </div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group '>
-                    <label>Email</label>
+                    <label>Username(*)</label>
+                    <input 
+                        type={"text"} 
+                        className="form-control "
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                    />
+                </div>
+                <div className='form-group '>
+                    <label>Email(*)</label>
                     <input 
                         type={"email"} 
                         className="form-control "
@@ -68,22 +84,34 @@ const Login = (props) =>{
                     />
                     
                 </div>
-                <div className='form-group '>
-                    <label>Password</label>
+                <div className='form-group pass-group'>
+                    <label>Password(*)</label>
                     <input 
-                        type={"password"} 
-                        className="form-control "
+                        type={isShowPassword ? "text" : "password"} 
+                        className="form-control w-100"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
+
+                    {isShowPassword ?
+                        <span className='icons-eye'
+                            onClick={() => setIsShowPassword(false)}>
+                            <VscEye />
+                        </span>
+                    :
+                        <span className='icons-eye'
+                            onClick={() => setIsShowPassword(true)}>
+                            <VscEyeClosed />
+                        </span>
+                    }
                 </div>
                 <span className='forgot-password'>Fogort your password?</span>
                 <div>
                     <button 
                         className='btn-submit'
-                        onClick={() => handleLogin()}
+                        onClick={() => handleRegister()}
                     >
-                    Login
+                    Register
                     </button>
                 </div>
 
@@ -95,4 +123,4 @@ const Login = (props) =>{
     )
 }
 
-export default Login;
+export default Register;

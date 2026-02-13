@@ -9,6 +9,7 @@ import HomePage from './components/Home/HomePage';
 import ManageUser from './components/Admin/Content/ManageUser';
 import DashBoard from './components/Admin/Content/Dashboard';
 import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import App from './App';
 import React from 'react';
 import { ToastContainer } from "react-toastify";
@@ -27,6 +28,7 @@ const Layout = (props) =>{
                     <Route path='manage-users' element={<ManageUser/>}></Route>
                 </Route>
                 <Route path="/login" element={<Login/>} /> 
+                <Route path="/register" element={<Register/>} /> 
             </Routes>
 
             <ToastContainer

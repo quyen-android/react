@@ -19,7 +19,6 @@ root.render(
       <BrowserRouter>
         <Layout/>
       </BrowserRouter>
-      
   </Provider>
 );
 

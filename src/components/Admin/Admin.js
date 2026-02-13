@@ -23,18 +23,6 @@ const Admin = (props) => {
                 </div>
                 
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                // transition={Bounce}
-            />
         </div>
     )
 }
